@@ -12,12 +12,8 @@ var targetRandomNumber = Math.floor(Math.random() * 100)+20;
 console.log(targetRandomNumber);
 $("#targetRandomNumber").text(targetRandomNumber);
 
-stone = []
-stone [0] = Math.floor(Math.random() * 12)+1;
-stone [1] = Math.floor(Math.random() * 12)+1;
-stone [2] = Math.floor(Math.random() * 12)+1;
-stone [3] = Math.floor(Math.random() * 12)+1;
-console.log("stones: " + stone);
+stonesvalues();
+console.log("stones-1: " + stone);
 
 //FUNCTIONS
 
@@ -64,13 +60,27 @@ function reset() {
   targetRandomNumber = Math.floor(Math.random() * 100)+20;
   $("#targetRandomNumber").text(targetRandomNumber);
 
+  stonesvalues();
+
+  console.log("stones-3: " + stone);
+
+  $("#gameEnd").empty();
+}
+
+function stonesvalues(){
   stone = []
   stone [0] = Math.floor(Math.random() * 12)+1;
   stone [1] = Math.floor(Math.random() * 12)+1;
   stone [2] = Math.floor(Math.random() * 12)+1;
   stone [3] = Math.floor(Math.random() * 12)+1;
-
-  console.log(stone);
-
-  $("#gameEnd").empty();
+  console.log("stones-2: " + stone);
+  
+  // Preguntar como conservar la variable
+  // for (var i = 0; i < stone-length; i++) {
+  //   for (j=i+1; j < stone-length; j++) {
+  //     if (stone[i] === stone[j]) {
+  //       stonesvalues()
+  //     }
+  //   }
+  // }
 }
