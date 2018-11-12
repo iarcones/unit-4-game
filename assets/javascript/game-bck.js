@@ -73,19 +73,19 @@ function reset() {
   }
 
 function stonesvalues(){
-
   stone = []
   stone [0] = Math.floor(Math.random() * 12)+1;
   stone [1] = Math.floor(Math.random() * 12)+1;
   stone [2] = Math.floor(Math.random() * 12)+1;
   stone [3] = Math.floor(Math.random() * 12)+1;
   
-  for (var i = 0; i < stone.length; i++) {
-    for (var j = (i + 1); j < stone.length; j++) { 
-      if (stone[i] === stone[j]) {
-          stonesvalues();
-      }
-    }
+  if (stone[0] === stone[1] || stone[0] === stone[2] || stone[0] === stone[3]) { 
+      stonesvalues()
+  }
+  if (stone[1] === stone[2] || stone[1] === stone[3]){
+      stonesvalues()
+  }
+  if (stone[2] === stone[3]){
+      stonesvalues()
   }
 }
-
