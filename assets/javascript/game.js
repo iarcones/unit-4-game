@@ -1,91 +1,79 @@
 //VARIABLES INITIAL
+$(document).ready(function() {
+  var wins = 0;
+  $("#wins").text(wins);
+  var losses = 0;
+  $("#losses").text(losses);
+  var gameOver = true;
 
-var wins = 0;
-$("#wins").text(wins);
-var losses = 0;
-$("#losses").text(losses);
-var gameOver = false;
+  var userGuessNumber = 0;
+  $("#userGuessNumber").text("?");
 
-var userGuessNumber = 0;
-
-var targetRandomNumber = Math.floor(Math.random() * 100)+20;
-console.log(targetRandomNumber);
-$("#targetRandomNumber").text(targetRandomNumber);
-
-
-stonesvalues();
-console.log("stone: " + stone);
+  var targetRandomNumber = 0
+  $("#targetRandomNumber").text("?");
 
 
-//FUNCTIONS
+  var stone = [];
 
-$(".squares").on("click", ".stone", function() {
-  var stoneValue = ($(this).attr("value"));
 
-  if (gameOver) {
-    document.querySelector("#gameEnd").innerHTML = "Game is over, if you want to play click on Start Game";
-  }
-  else { 
-    userGuessNumber = userGuessNumber + stone[stoneValue];
+  $(".stone")
+    .on("click", function() {
+
+      var stoneValue = $(this).attr("value");
+
+      if (gameOver) {
+        $("#gameEnd").text(
+          "if you want to play click on Start Game"
+        );
+      } else {
+        userGuessNumber = userGuessNumber + stone[stoneValue];
+        $("#userGuessNumber").text(userGuessNumber);
+
+        if (userGuessNumber === targetRandomNumber) {
+          wins++
+          $("#wins").text(wins);
+          $("#gameEnd").text("You won");
+          gameOver = true;
+        } else if (userGuessNumber > targetRandomNumber) {
+          losses++
+          $("#losses").text(losses);
+          $("#gameEnd").text("You lost");
+          gameOver = true;
+        }
+      }
+    })
+
+    $("#play").on("click", function() {
+      reset();
+    });
+
+
+  function reset() {
+
+    userGuessNumber = 0;
     $("#userGuessNumber").text(userGuessNumber);
+   
+    targetRandomNumber = Math.floor(Math.random() * 100) + 20;
+    $("#targetRandomNumber").text(targetRandomNumber);
 
-    if(userGuessNumber  === targetRandomNumber){
-      wins = wins+1;
-      $("#wins").text(wins);
-      document.querySelector("#gameEnd").innerHTML = "You won";
-      gameOver = true;
+    $("#gameEnd").empty();
+
+    stonesvalues();
+    gameOver = false;
+  
+  }
+
+  function stonesvalues() {
+    stone = [];
+
+    while (stone.length < 4) {
+      var value = Math.floor(Math.random() * 12) + 1;
+      console.log(value);
+      if (stone.indexOf(value) === -1) {
+        stone.push(value);
       }
-    else if (userGuessNumber  > targetRandomNumber) {
-      losses = losses+1;
-      $("#losses").text(losses);
-      document.querySelector("#gameEnd").innerHTML = "You lost";
-      gameOver = true;
-    }
-    else {
-
     }
   }
-}).on("click", ".restart", function() {
-    reset();
+
+
 });
-
-
-// RESET
-
-function reset() {
-
-  userGuessNumber = 0;
-  $("#userGuessNumber").text(userGuessNumber);
-  targetRandomNumber = 0;
-  stone = [];
-  gameOver = false;
-
-  targetRandomNumber = Math.floor(Math.random() * 100)+20;
-  $("#targetRandomNumber").text(targetRandomNumber);
-
-  $("#gameEnd").empty();
-
-  stonesvalues();
-
-  console.log(targetRandomNumber);
-  console.log("stone: " + stone);
-  
-  }
-
-function stonesvalues(){
-
-  stone = []
-  stone [0] = Math.floor(Math.random() * 12)+1;
-  stone [1] = Math.floor(Math.random() * 12)+1;
-  stone [2] = Math.floor(Math.random() * 12)+1;
-  stone [3] = Math.floor(Math.random() * 12)+1;
-  
-  for (var i = 0; i < stone.length; i++) {
-    for (var j = (i + 1); j < stone.length; j++) { 
-      if (stone[i] === stone[j]) {
-          stonesvalues();
-      }
-    }
-  }
-}
-
